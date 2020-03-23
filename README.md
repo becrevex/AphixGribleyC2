@@ -1,6 +1,5 @@
 # AphixGribleyC2 Suite
 
-
 # Installation
 Clone the git directory.<br>
 $ git clone https://github.com/becrevex/AphixGribleyC2.git<br>
@@ -10,21 +9,22 @@ $ git clone https://github.com/becrevex/AphixGribleyC2.git<br>
 # Execution
 
 Launch the server, perferably on a linux host.  The server will default to port tcp/443.
-<img align="center" src="https://github.com/becrevex/Sscap/blob/master/ss2020-22-3--04-20-23.jpg" width="700" height="500" />
+<img align="center" src="https://github.com/becrevex/AphixGribleyC2/blob/master/img/start_server.jpg" width="700" height="500" />
+
+Start the client, and connect to the Aphix server:
+<img align="center" src="https://github.com/becrevex/AphixGribleyC2/blob/master/img/run_client.jpg" width="700" height="500" />
+
+Issue commands:
+<img align="center" src="https://github.com/becrevex/AphixGribleyC2/blob/master/img/issue_commands.jpg" width="700" height="500" />
 
 
 
-c:\\> Sscap.exe [-pqi]<br>
+# Basic Usage
+c:\\> python3 aphix_server.py [-pde]
 Usage: Sscap.exe [-q] [-p] [-i|-interactive]<br>
-     -q     Quick mode --takes a quick shot, no context.<br>
-     -p     Pentest screen shot with tracking capabilities. Writes to log file.<br>
-     -i     Interactive mode.  Waits for button press and snaps a shot.<br>
-
-Current screen:
-
-
-
-
+     -p     Specifies a port to listen on<br>
+     -d     Connecting Gribley agents will have packages copied and executed upon <br>
+     -e     Immediate enumeration of all connecting Gribley agents.<br>
 
 Usage:
 Launch the Aphix server, preferably on a linux machine.  The server will default to port TCP/443.
