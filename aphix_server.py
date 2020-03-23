@@ -52,18 +52,11 @@ def setPortNumber(portnum):
 
 def cert_help():
         helpfile =  """
-        #Steps to generate self-signed cert
-        Step 1:
-        openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out certificate.pem
-
-        Step 2:
-        openssl x509 -text -noout -in certificate.pem
-
-        Step 3:
-        openssl pkcs12 -inkey key.pem -in certificate.pem -export -out certificate.p12
-
-        Step 4:
-        openssl pkcs12 -in certificate.p12 -noout -info
+#Steps to generate self-signed cert
+Step 1: openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out certificate.pem
+Step 2: openssl x509 -text -noout -in certificate.pem
+Step 3: openssl pkcs12 -inkey key.pem -in certificate.pem -export -out certificate.p12
+Step 4: openssl pkcs12 -in certificate.p12 -noout -info
         """
         print(helpfile)
 
