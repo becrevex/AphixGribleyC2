@@ -9,14 +9,14 @@ $ git clone https://github.com/becrevex/AphixGribleyC2.git<br>
 # Execution
 
 Launch the server, perferably on a linux host.  The server will default to port tcp/443.
-<img align="center" src="https://github.com/becrevex/AphixGribleyC2/blob/master/img/start_server.jpg" width="700" height="500" />
+<img align="center" src="https://github.com/becrevex/AphixGribleyC2/blob/master/img/start_server.jpg" width="500" height="150" />
 
 
 Start the client, and connect to the Aphix server:
-<img align="center" src="https://github.com/becrevex/AphixGribleyC2/blob/master/img/run_client.jpg" width="700" height="500" />
+<img align="center" src="https://github.com/becrevex/AphixGribleyC2/blob/master/img/run_client.jpg" width="500" height="150" />
 
 Issue commands:
-<img align="center" src="https://github.com/becrevex/AphixGribleyC2/blob/master/img/issue_commands.JPG" width="320" height="90" />
+<img align="center" src="https://github.com/becrevex/AphixGribleyC2/blob/master/img/issue_commands.JPG" width="500" height="150" />
 
 
 
