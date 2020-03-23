@@ -13,8 +13,8 @@ echo -e "|                cygienesolutions.com               |"
 echo -e "|   [Usage]: ./generate_sscert.sh <TARGET> <PORT>   |"
 echo -e "+---------------------------------------------------+"
 echo -e "${NC}"
-if [ $# == 0 ] ; then
-    exit 1; fi
+#if [ $# == 0 ] ; then
+#    exit 1; fi
 
 #Generate self-signed cert
 openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out certificate.pem

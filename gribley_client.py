@@ -25,8 +25,15 @@ user_agents = ['Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.3
 try:
     soc = sys.argv[1]
 except:
-    print("Valid socket address needed. Quitting.")
+    print("Usage: gribley_client.py [host] [port]")
     sys.exit()
+
+try:
+    port = sys.argv[2]
+except:
+    port = 443
+
+
 
 httpsrv = ('https://'+soc)
 context = ssl.create_default_context()

