@@ -140,6 +140,7 @@ if __name__ == '__main__':
     except:
         print('Self-signed certificate files missing. Refer to README.md')
         print('Rerun the server.')
+        return
     try:
         print('[+] Starting Aphix C2 Server 0.0.0.0: ' + str(PORT_NUMBER))
         print('   lan: https:\\\\'+lan_ip+":"+str(PORT_NUMBER))
