@@ -6,6 +6,13 @@ $ git clone https://github.com/becrevex/AphixGribleyC2.git<br>
 
 <i>Get it now, because this one might go private.</i>
 
+# Basic Usage
+c:\\> python3 aphix_server.py [-pde]
+Usage: Sscap.exe [-q] [-p] [-i|-interactive]<br>
+     -p     Specifies a port to listen on<br>
+     -d     Connecting Gribley agents will have packages copied and executed upon <br>
+     -e     Immediate enumeration of all connecting Gribley agents.<br>
+
 # Execution
 
 Launch the server, perferably on a linux host.  The server will default to port tcp/443.<br>
@@ -20,13 +27,5 @@ Issue commands:<br>
 
 
 
-# Basic Usage
-c:\\> python3 aphix_server.py [-pde]
-Usage: Sscap.exe [-q] [-p] [-i|-interactive]<br>
-     -p     Specifies a port to listen on<br>
-     -d     Connecting Gribley agents will have packages copied and executed upon <br>
-     -e     Immediate enumeration of all connecting Gribley agents.<br>
 
-Usage:
-Launch the Aphix server, preferably on a linux machine.  The server will default to port TCP/443.
 
