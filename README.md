@@ -7,8 +7,7 @@ $ git clone https://github.com/becrevex/AphixGribleyC2.git<br>
 <i>Get it now, because this one might go private.</i>
 
 # Basic Usage
-c:\\> python3 aphix_server.py [-pde]
-Usage: Sscap.exe [-q] [-p] [-i|-interactive]<br>
+Usage: python3 aphix_server.py [-pde]
      -p     Specifies a port to listen on<br>
      -d     Connecting Gribley agents will have packages copied and executed upon <br>
      -e     Immediate enumeration of all connecting Gribley agents.<br>
