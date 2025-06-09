@@ -1,6 +1,5 @@
-# Authored by: Brent 'becrevex' Chambers
+# Authored by: becrevex
 # Date: 03/22/2020
-# Vendor Homepage: https://www.cygienesolutions.com/
 # Filename: aphix_server.py
 #
 # Description:
