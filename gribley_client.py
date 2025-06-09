@@ -1,6 +1,5 @@
-# Authored by: Brent 'becrevex' Chambers
+# Authored by: 'becrevex'
 # Date: 03/22/2020 (Quarantine 2020 - Event 201!)
-# Vendor Homepage: https://www.cygienesolutions.com/
 # Filename: gribley_client.py
 # Description: AphixGribley C2
 # Aphix is an HTTPS C2 server which can establish remote control over Gribley client connected agents.
